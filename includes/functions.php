@@ -5,7 +5,7 @@ function login($name, $pass, $mysqli) {
     //Search DB for matching user. Grab UID and pass hash
     $conn = mysqli_connect(HOST, USER, PASSWORD);
     if(! $conn ) {
-        die('Could not connect: ' . mysqli_error());
+        die('Error: Could not connect to database ' . mysqli_error());
     }
     
     $sql = "SELECT name, pass FROM users";
@@ -14,11 +14,11 @@ function login($name, $pass, $mysqli) {
     $retval = mysqli_query( $conn, $sql );
    
     if(! $retval ) {
-        die('Could not enter data: ' . mysqli_error());
+        die('Error: Could not fetch database credentials ' . mysqli_error());
     }
 
     while($row = mysqli_fetch_array($retval)) {
-        if($row['name']==$name){
+        if(strtolower($row['name'])==strtolower($name)){
             $cname = true;
             if(password_verify($pass,$row['pass'])){
                 //Correct login, initiate session
@@ -26,8 +26,7 @@ function login($name, $pass, $mysqli) {
                 $user_browser = $_SERVER['HTTP_USER_AGENT'];
                 $_SESSION['uid'] = $row['id'];
                 $_SESSION['login_string'] = hash('sha512', $db_pass . $user_browser);
-                $_SESSION['user'] = $name;
-
+                $_SESSION['user'] = $row['name'];
                 return true;
             } else {
                 //Incorrect password
