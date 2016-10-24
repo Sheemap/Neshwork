@@ -9,6 +9,8 @@ session_start();
 <html>
 <body>
 
+<!-- Basic login form. Passes info to includes/process_login.php -->
+
 <form action="includes/process_login.php" method="post"> 
  Username: <input type="text" name="name"><br> 
  Password: <input type="password" name="pass" id="password"><br> 

@@ -2,6 +2,8 @@
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
+//Currently this whole files is pretty much only used for debugging
+
 session_start();
 print $_SESSION['user'].'\n';
 print $_SESSION['login_string'].'\n';

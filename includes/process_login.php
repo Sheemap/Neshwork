@@ -5,10 +5,12 @@ include_once 'functions.php';
 
 session_start();
 
+//Verifies name and password were entered
 if (isset($_POST['name'], $_POST['pass'])) {
     $name = $_POST['name'];
     $pass = $_POST['pass'];
     
+    //Calls login function to verify correct credentials
     if (login($name, $pass, $mysqli) == true) {
         //Success
         header("Location: ../index.php");

@@ -12,10 +12,13 @@ include_once 'includes/functions.php';
 <h1>Register</h1>
 
 <?php
+//Prints any errors found 
 if (!empty($error_msg)) {
     echo $error_msg;
 }
 ?>
+
+<!-- Basic form. All the actual work is handled by includes/reg_process.php -->
 
 <form method="post" name="registration_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 Username: <input type="text" name="name"><br>

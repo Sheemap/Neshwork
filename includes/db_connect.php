@@ -1,4 +1,5 @@
 <?php
+//Was originally going to use this to hold the db connection, now its just here. Will end up changing it.
 
 include_once 'config.php';
 
