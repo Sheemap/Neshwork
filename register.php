@@ -7,10 +7,9 @@ include_once 'includes/functions.php';
 <head>
 <meta charset="UTF-8">
 <title>Registration</title>
+<link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
-<h1>Register</h1>
-
 <?php
 //Prints any errors found 
 if (!empty($error_msg)) {
@@ -20,9 +19,18 @@ if (!empty($error_msg)) {
 
 <!-- Basic form. All the actual work is handled by includes/reg_process.php -->
 
-<form method="post" name="registration_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-Username: <input type="text" name="name"><br>
-Password: <input type="password" name="pass" id="password"><br>
-Confirm password: <input type="password" name="cnfpass" id="cnfpassword"><br>
-<input type="submit" value="Register"/>
+<form id="signupform" method="post" name="registration_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<p>
+<label for="name">Username</label><br>
+<input class="textbox" type="text" name="name">
+</p>
+<p>
+<label for="pass">Password</label><br>
+<input class="textbox" type="password" name="pass" id="password">
+</p>
+<p>
+<label for="cnfpass">Confirm Password</label><br>
+<input class="textbox" type="password" name="cnfpass" id="cnfpassword">
+</p>
+<input class="button" type="submit" value="Register"/>
 </form>

@@ -30,8 +30,9 @@ function login($name, $pass, $mysqli) {
 
                 $user_browser = $_SERVER['HTTP_USER_AGENT'];
                 $_SESSION['uid'] = $row['id'];
-                $_SESSION['login_string'] = hash('sha512', $db_pass . $user_browser);
+                $_SESSION['login_string'] = hash('sha512', $row['pass'] . $user_browser);
                 $_SESSION['user'] = $row['name'];
+                error_log($row['id']);
                 return true;
             } else {
                 //Logs incorrect password attempts. Still a TODO

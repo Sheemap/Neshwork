@@ -7,15 +7,24 @@ session_start();
 
 <!DOCTYPE html>
 <html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css"/> 
+</head>
 <body>
 
 <!-- Basic login form. Passes info to includes/process_login.php -->
 
-<form action="includes/process_login.php" method="post"> 
- Username: <input type="text" name="name"><br> 
- Password: <input type="password" name="pass" id="password"><br> 
+<form id="loginform" action="includes/process_login.php" method="post"> 
+<p>
+<label for="name">Username</label><br>
+<input class="textbox" type="text" name="name"> 
+</p>
+<p>
+<label for="pass">Password</label><br>
+<input class="textbox" type="password" name="pass" id="password"> 
+</p>
 <!-- Remember Me: <input type="checkbox" name="rememberme" value="1"<br>-->
- <input type="submit" value="Login"> 
+<input class="button" type="submit" value="Login"> 
 </form> 
 
 
