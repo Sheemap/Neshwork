@@ -1,0 +1,85 @@
+body
+{
+  margin: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  max-width: 600px;
+  background-color: #FFFFFF;
+  font-family: Arial, sans-serif;
+}
+
+a
+{
+  text-decoration: none;
+}
+
+#header
+{
+  height: 50px;
+}
+
+#header img
+{
+  height: 40px;
+}
+
+#logo
+{
+  float: left;
+}
+
+.topright
+{
+  float: right;
+}
+
+.message
+{
+  border-style: solid;
+  border-color: #AAAAAA;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.message a
+{
+  color: #666666;
+  font-weight: bold;
+}
+
+#posthead
+{
+  color: #666666;
+  font-weight: bold;
+}
+
+#postform textarea
+{
+  border-width: 3px;
+  border-color: #AAAAAA;
+  border-radius: 5px;
+}
+
+#loginform
+{
+  text-align: center;
+}
+
+#signupform
+{
+  text-align: center;
+}
+
+form label
+{
+  color: #666666;
+  font-weight: bold;
+}
+
+form button
+{
+  color: #FFFFFF;
+  background-color: #888888;
+  border-width: 0px;
+  border-radius: 10px;
+}
