@@ -5,9 +5,10 @@ include_once 'includes/functions.php';
 //Currently this whole files is pretty much only used for debugging
 
 session_start();
-print $_SESSION['user']."\n";
+/*print $_SESSION['name']."\n";
 print $_SESSION['login_string']."\n";
 print $_SESSION['uid']."\n";
+*/
 if (login_check($mysqli) == true) {
     $logged = 'in';
 } else {
@@ -32,7 +33,7 @@ if (login_check($mysqli) == true) {
 echo <<< EOT
   <span class="topright">
     <a href="people/{$_SESSION['name']}"><img src="img/profile.png" alt="Profile"/></a>
-    <a href="includes/logout"><img src="img/logout.png" alt="Logout"/></a>
+    <a href="logout"><img src="img/logout.png" alt="Logout"/></a>
   </span>
 EOT;
 
@@ -48,10 +49,6 @@ EOT;
 }
 ?>
 </p>
+<hr>
 
 
-<p>If you don't have a login, please <a href="register.php">register</a>.</p>
-<p>If you are done, please <a href="includes/logout.php">log out</a>.</p>
-<p>You are currently logged <?php echo $logged ?>.</p>
-<p>Here you can <a href="login.php">login</a>.</p>
-<p><a href="waow.php">test</a>
