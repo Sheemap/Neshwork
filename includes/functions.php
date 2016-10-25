@@ -10,7 +10,7 @@ function login($name, $pass, $mysqli) {
         die('Error: Could not connect to database ' . mysqli_error());
     }
     
-    $sql = "SELECT name, pass FROM users";
+    $sql = "SELECT * FROM users";
       
     mysqli_select_db($conn,DATABASE);
     $retval = mysqli_query( $conn, $sql );
@@ -32,7 +32,11 @@ function login($name, $pass, $mysqli) {
                 $_SESSION['uid'] = $row['id'];
                 $_SESSION['login_string'] = hash('sha512', $row['pass'] . $user_browser);
                 $_SESSION['user'] = $row['name'];
-                error_log($row['id']);
+                
+                foreach ($row as $i) {
+                    error_log ($i);
+                }
+
                 return true;
             } else {
                 //Logs incorrect password attempts. Still a TODO
@@ -79,7 +83,7 @@ function login_check($mysqli) {
 
         $conn = mysqli_connect(HOST, USER, PASSWORD);
         if(! $conn ) {
-            die('Could not connect: ' . mysqli_error());
+            die('Error: Could not connect to database = ' . mysqli_error());
         }
 
 
@@ -87,12 +91,12 @@ function login_check($mysqli) {
         $retval = mysqli_query( $conn, $sql );
 
         if(! $retval ) {
-            die('Could not enter data: ' . mysqli_error());
+            die('Error: Could not verify login status ' . mysqli_error());
         }
    
         $hashpass = mysqli_fetch_row($retval);
 
-        $login_check = hash('sha512', $hashpass['pass'] . $user_browser);
+        $login_check = hash('sha512', $hashpass['0'] . $user_browser);
             
         //Verify that the login string is still valid with the current session.
         if ($login_check == $login_string) {
