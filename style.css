@@ -47,6 +47,13 @@ a
   float: left;
 }
 
+.img.center
+{
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+
 .topright
 {
   float: right;

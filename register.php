@@ -6,7 +6,7 @@ include_once 'includes/functions.php';
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Registration</title>
+<title>Neshwork - Sign Up</title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>
@@ -18,6 +18,33 @@ if (!empty($error_msg)) {
 ?>
 
 <!-- Basic form. All the actual work is handled by includes/reg_process.php -->
+
+<p id="header">
+  <a id="logo" href="/"><img src="img/logo.png" alt="Neshwork"/></a>
+
+<?php
+if (login_check($mysqli) == true) {
+
+echo <<< EOT
+  <span class="topright">
+    <a href="people/{$_SESSION['name']}"><img src="img/profile.png" alt="Profile"/></a>
+    <a href="logout"><img src="img/logout.png" alt="Logout"/></a>
+  </span>
+EOT;
+
+} else {
+
+echo <<< EOT
+  <span class="topright">
+    <a href="login"><img src="img/login.png" alt="Log In"/></a>
+    <a href="register"><img src="img/signup.png" alt="Sign Up"/></a>
+  </span>
+EOT;
+
+}
+?>
+</p>
+<hr>
 
 <form id="signupform" method="post" name="registration_form" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <p>
@@ -32,5 +59,5 @@ if (!empty($error_msg)) {
 <label for="cnfpass">Confirm Password</label><br>
 <input class="textbox" type="password" name="cnfpass" id="cnfpassword">
 </p>
-<input class="button" type="submit" value="Register"/>
+<input class="button" type="submit" value="Sign Up"/>
 </form>

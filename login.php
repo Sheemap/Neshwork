@@ -8,9 +8,37 @@ session_start();
 <!DOCTYPE html>
 <html>
 <head>
+<title>Neshwork - Login</title>
 <link rel="stylesheet" type="text/css" href="style.css"/> 
 </head>
 <body>
+
+<p id="header">
+  <a id="logo" href="/"><img src="img/logo.png" alt="Neshwork"/></a>
+
+<?php
+if (login_check($mysqli) == true) {
+
+echo <<< EOT
+  <span class="topright">
+    <a href="people/{$_SESSION['name']}"><img src="img/profile.png" alt="Profile"/></a>
+    <a href="logout"><img src="img/logout.png" alt="Logout"/></a>
+  </span>
+EOT;
+
+} else {
+
+echo <<< EOT
+  <span class="topright">
+    <a href="login"><img src="img/login.png" alt="Log In"/></a>
+    <a href="register"><img src="img/signup.png" alt="Sign Up"/></a>
+  </span>
+EOT;
+
+}
+?>
+</p>
+<hr>
 
 <!-- Basic login form. Passes info to includes/process_login.php -->
 
