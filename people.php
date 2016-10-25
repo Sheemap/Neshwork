@@ -5,7 +5,7 @@ include_once 'includes/functions.php';
 
 session_start();
 
-$msg = 0;
+$now = time();
 
 if (isset($_GET['person'])){
     $name = $_GET['person'];
@@ -43,9 +43,21 @@ if (isset($_GET['person'])){
     //Checks for matching username
     while($row = mysqli_fetch_array($retval)) {
         if(strtolower($row['name'])==strtolower($name)){
-            $lastseen = $row['lastseen'];
-            //$msg = $row['msgcount'];
-            if (isset($row['status'])){
+            $db_seen = $row['lastseen'];
+            $timeago = ($now - $db_seen);
+
+            if ($timeago < 60){
+                $lastseen = "less than a minute ago";
+            } elseif ($timeago < 3600){
+                $lastseen = floor($timeago / 60) ." minutes ago";
+            } elseif ($timeago < 86400){
+                $lastseen = floor($timeago / 3600) ." hours ago";
+            } else {
+                $lastseen = floor($timeago / 86400) ." days ago";
+            }
+
+            $msg = $row['msgcount'];
+            if ($row['status'] != ''){
                 if ($own == true){
                     $status = "<p class='status'>".$row['status']."<br><font size='6'><i><a href='../setstatus'>Click to change</a></i></font></p>";
                 } else {
@@ -58,6 +70,8 @@ if (isset($_GET['person'])){
                     $status = "<p class='status'><i>This user has not set a status yet.</i></p>";
                 }
             }
+         
+            $joined = $row['joined'];
         }
     }
     
@@ -107,11 +121,13 @@ EOT;
 <?php 
 echo <<<EOT
 <h1>$name's profile</h1>
-<p><i>Last seen on $lastseen</i></p>
+<p><i>Last seen $lastseen</i></p>
 <h3>Status</h3>
 $status
 <h3>Statistics</h3>
 <p>
+Member since: $joined
+<br>
 Message count: $msg
 
 </p>

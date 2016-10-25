@@ -119,7 +119,8 @@ function login_check($mysqli) {
 }
 
 function update_lastseen($uid){
-    $sql = "UPDATE users SET lastseen = NOW() WHERE id=$uid";
+    $now = time();
+    $sql = "UPDATE users SET lastseen = $now WHERE id=$uid";
     $conn = mysqli_connect(HOST, USER, PASSWORD);
     if(! $conn ) {
         die('Error: Could not connect to database = ' . mysqli_error());

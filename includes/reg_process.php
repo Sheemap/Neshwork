@@ -7,6 +7,7 @@ session_start();
 
 //Reset error messages
 $error_msg = "";
+$now = time();
 
 //Verify fields were filled
 if (isset($_POST['pass'], $_POST['name'], $_POST['cnfpass'])){
@@ -34,16 +35,16 @@ if (isset($_POST['pass'], $_POST['name'], $_POST['cnfpass'])){
             $conn = mysqli_connect(HOST, USER, PASSWORD);
             
             //Forces pass to be at least 8 chars
-            if (strlen($_POST['pass']) < 8){
+          /*  if (strlen($_POST['pass']) < 8){
                 $error_msg .= "<p class='error'>Password must be at least 8 characters.</p>";
-            }
+            }*/
 
             if(! $conn ) {
                 die('Error: Could not connect to database ' . mysqli_error());
             }
    
             $sql1 = "SELECT name FROM users";
-            $sql = "INSERT INTO users(id, name, pass ) VALUES ( NULL, '$name', '$pass' )";
+            $sql = "INSERT INTO users(id, name, pass, lastseen, status, msgcount, joined) VALUES ( NULL, '$name', '$pass', $now, '', 0, NOW())";
       
             mysqli_select_db($conn,DATABASE);
             $retval1 = mysqli_query( $conn, $sql1 );

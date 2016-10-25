@@ -4,7 +4,19 @@
 include_once 'config.php';
 
 $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
-if ($mysqli->connect_error) {
-    header("Location: ../error.php?err=Unable to connect to MySQL");
-    exit();
+
+function query($sql){
+    $conn = mysqli_connect(HOST, USER, PASSWORD);
+    if (!$conn) {
+        die('Error: Could not connect to database ' . mysqli_error());
+    }
+
+    mysqli_select_db($conn,DATABASE);
+    $retval = mysqli_query($conn,$sql);
+
+    if (!$retval) {
+        die('Error: Could not process sql request '.mysqli_error());
+    }
+
+    return $retval;
 }
