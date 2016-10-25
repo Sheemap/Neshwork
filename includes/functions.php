@@ -1,5 +1,6 @@
 <?php
 include_once 'config.php';
+include_once 'db_connect.php';
 
 //This holds all functions for logging in, checking logged in status, and any future functions we need.
 
@@ -19,6 +20,9 @@ function login($name, $pass, $mysqli) {
         die('Error: Could not fetch database credentials ' . mysqli_error());
     }
 
+    //$sql = "SELECT * FROM users";
+    //query($sql);
+
     //Checks for matching username
     while($row = mysqli_fetch_array($retval)) {
         if(strtolower($row['name'])==strtolower($name)){
@@ -31,7 +35,7 @@ function login($name, $pass, $mysqli) {
                 $user_browser = $_SERVER['HTTP_USER_AGENT'];
                 $_SESSION['uid'] = $row['id'];
                 $_SESSION['login_string'] = hash('sha512', $row['pass'] . $user_browser);
-                $_SESSION['user'] = $row['name'];
+                $_SESSION['name'] = $row['name'];
                 
                 foreach ($row as $i) {
                     error_log ($i);
@@ -69,10 +73,10 @@ function login($name, $pass, $mysqli) {
 //This verifies if people are still logged in. Will be used when posting or accessing private pages specific to users.
 function login_check($mysqli) {
     //Verify all session vars are set
-    if (isset($_SESSION['uid'], $_SESSION['user'], $_SESSION['login_string'])) {
+    if (isset($_SESSION['uid'], $_SESSION['name'], $_SESSION['login_string'])) {
         $uid = $_SESSION['uid'];
         $login_string = $_SESSION['login_string'];
-        $username = $_SESSION['user'];
+        $username = $_SESSION['name'];
 
 
         //Grabs password hash as well as user agent to find the login string
@@ -101,6 +105,7 @@ function login_check($mysqli) {
         //Verify that the login string is still valid with the current session.
         if ($login_check == $login_string) {
             // Logged in
+            update_lastseen($uid);
             return true;
         } else {
             //Not logged in
@@ -110,5 +115,21 @@ function login_check($mysqli) {
     } else {
         //Not logged in
         return false;
+    }
+}
+
+function update_lastseen($uid){
+    $sql = "UPDATE users SET lastseen = NOW() WHERE id=$uid";
+    $conn = mysqli_connect(HOST, USER, PASSWORD);
+    if(! $conn ) {
+        die('Error: Could not connect to database = ' . mysqli_error());
+    }
+
+
+    mysqli_select_db($conn,DATABASE);
+    $retval = mysqli_query( $conn, $sql );
+
+    if(! $retval ) {
+        die('Error: Could not update info ' . mysqli_error());
     }
 }
