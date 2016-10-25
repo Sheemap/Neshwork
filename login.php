@@ -14,6 +14,12 @@ session_start();
 
 <!-- Basic login form. Passes info to includes/process_login.php -->
 
+<?php
+if (isset($_GET['error'])){
+    echo "<p class='error'>Wrong usernme or password</p>";
+}
+?>
+
 <form id="loginform" action="includes/process_login.php" method="post"> 
 <p>
 <label for="name">Username</label><br>
