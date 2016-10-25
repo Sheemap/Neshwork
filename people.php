@@ -12,6 +12,7 @@ if (isset($_GET['person'])){
 
     //Check if logged in
     if (login_check(mysqli) == true) {
+        $loggedin = true;
         //Check if logged in user is owner of profile
         if ($_SESSION['name'] == $name){
             $own = true;
@@ -81,7 +82,7 @@ if (isset($_GET['person'])){
   <a id="logo" href="/"><img src="../img/logo.png" alt="Neshwork"/></a>
 
 <?php
-if ($own == true) {
+if ($loggedin == true) {
 
 echo <<<EOT
   <span class="topright">
