@@ -134,3 +134,45 @@ function update_lastseen($uid){
         die('Error: Could not update info ' . mysqli_error());
     }
 }
+
+function send_msg($uid,$msg){
+    if ($uid == 0) {
+        $name = "Anonymous";
+        $now = time();
+
+        $sql = "INSERT INTO msgs(id,name,msg,timestamp) VALUES(NULL,'Anonymous','$msg',$now)";
+        $conn = mysqli_connect(HOST, USER, PASSWORD);
+        if(! $conn ) {
+            die('Error: Could not connect to database = ' . mysqli_error());
+        }
+
+
+        mysqli_select_db($conn,DATABASE);
+        $retval = mysqli_query( $conn, $sql );
+
+        if(! $retval ) {
+            die('Error: Could not send message ' . mysqli_error());
+        }
+    } else {
+        $name = $_SESSION['name'];
+        $now = time();
+    
+        $sql = "INSERT INTO msgs(id,name,msg,timestamp) VALUES(NULL,'$name','$msg',$now)";
+        $sql1 = "UPDATE users SET msgcount = msgcount + 1 WHERE id=$uid";
+        $conn = mysqli_connect(HOST, USER, PASSWORD);
+        if(! $conn ) {
+            die('Error: Could not connect to database = ' . mysqli_error());
+        }
+
+
+        mysqli_select_db($conn,DATABASE);
+        $retval = mysqli_query( $conn, $sql );
+        $retval = mysqli_query( $conn, $sql1 );
+
+        if(! $retval ) {
+            die('Error: Could not send message ' . mysqli_error());
+        }
+ 
+
+    }
+}
