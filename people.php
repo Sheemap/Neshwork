@@ -6,12 +6,13 @@ include_once 'includes/functions.php';
 session_start();
 
 $now = time();
+$cname = false;
 
 if (isset($_GET['person'])){
     $name = $_GET['person'];
 
     //Check if logged in
-    if (login_check(mysqli) == true) {
+    if (login_check($mysqli) == true) {
         $loggedin = true;
         //Check if logged in user is owner of profile
         if ($_SESSION['name'] == $name){
@@ -42,7 +43,9 @@ if (isset($_GET['person'])){
 
     //Checks for matching username
     while($row = mysqli_fetch_array($retval)) {
+        error_log($row['name']);
         if(strtolower($row['name'])==strtolower($name)){
+            $cname = true;
             $db_seen = $row['lastseen'];
             $timeago = ($now - $db_seen);
 
@@ -72,13 +75,18 @@ if (isset($_GET['person'])){
             }
          
             $joined = $row['joined'];
-        }
+        } 
+    }
+      
+    if ($cname != true){
+        header("Location: ../error.php?err=No such user exists!");
+        exit();
     }
     
     
 } else {
     //No user in url
-    header("Location: ./error.php?error=nouser");
+    header("Location: ./error.php?err=No user selected!");
     exit();
 }
 ?>

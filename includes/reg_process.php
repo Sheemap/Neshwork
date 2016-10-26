@@ -22,6 +22,10 @@ if (isset($_POST['pass'], $_POST['name'], $_POST['cnfpass'])){
         $error_msg .= "<p class='error'>Username must not contain any whitespace.</p>";
     }
 
+    if (preg_match("/'/",$_POST['name']) or preg_match('/"/',$_POST['name'])){
+        $error_msg .= "<p class='error'>Username must not contain any apostrophes or quotes.</p>";
+    }
+
     //Force username less thn 15 chars
     if (strlen($_POST['name']) > 15){
         $error_msg .= "<p class='error'>Username is too long! Please limit to 15 characters.</p>";
@@ -35,9 +39,9 @@ if (isset($_POST['pass'], $_POST['name'], $_POST['cnfpass'])){
             $conn = mysqli_connect(HOST, USER, PASSWORD);
             
             //Forces pass to be at least 8 chars
-          /*  if (strlen($_POST['pass']) < 8){
+            if (strlen($_POST['pass']) < 8){
                 $error_msg .= "<p class='error'>Password must be at least 8 characters.</p>";
-            }*/
+            }
 
             if(! $conn ) {
                 die('Error: Could not connect to database ' . mysqli_error());

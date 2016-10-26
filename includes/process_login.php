@@ -13,7 +13,7 @@ if (isset($_POST['name'], $_POST['pass'])) {
     //Calls login function to verify correct credentials
     if (login($name, $pass, $mysqli) == true) {
         //Success
-        header("Location: ../index.php");
+        header("Location: ../");
         exit();
     } else {
         //Failure

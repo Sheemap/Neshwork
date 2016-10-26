@@ -25,6 +25,9 @@ if (!empty($error_msg)) {
 <?php
 if (login_check($mysqli) == true) {
 
+header("Location: /?err=Please logout to register a new account");
+exit();
+
 echo <<< EOT
   <span class="topright">
     <a href="people/{$_SESSION['name']}"><img src="img/profile.png" alt="Profile"/></a>

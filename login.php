@@ -3,6 +3,7 @@ include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
 session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +19,9 @@ session_start();
 
 <?php
 if (login_check($mysqli) == true) {
+
+header("Location: /?err=Already logged in!");
+exit();
 
 echo <<< EOT
   <span class="topright">
