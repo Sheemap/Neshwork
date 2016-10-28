@@ -27,7 +27,9 @@ if (login_check($mysqli) != true){
   </span>
 
 <?php
-$sql = "SELECT id, status FROM users WHERE id=$uid LIMIT 1";
+$uid = $_SESSION['uid'];
+
+$sql = "SELECT status FROM users WHERE id=$uid LIMIT 1";
 
 $conn = mysqli_connect(HOST, USER, PASSWORD);
 if(! $conn ) {
@@ -38,16 +40,17 @@ if(! $conn ) {
 mysqli_select_db($conn,DATABASE);
 $retval = mysqli_query( $conn, $sql );
 
-/*if(! $retval ) {
+if(! $retval ) {
     die('Error: Could not fetch current status ' . mysqli_error());
-}*/
+}
 
 $db_status = mysqli_fetch_row($retval);
 
-if (isset($db_status['status'])){
+
+if (isset($db_status['0'])){
     echo <<<EOT
     <h2>Change Your Status</h2>
-    <p>Current status: $db_status</p>
+    <p>Current status: {$db_status['0']}</p>
     <p>Statuses must be under 256 characters</p>
 
     <form id="statusform" action="includes/change_status.php" method="post">
