@@ -22,8 +22,9 @@ if (login_check($mysqli) != true){
 <p id="header">
   <a id="logo" href="/"><img src="img/logo.png" alt="Neshwork"/></a>
   <span class="topright">
-    <a href="people/{$_SESSION['name']}"><img src="img/profile.png" alt="Profile"/></a>
-    <a href="includes/logout"><img src="img/logout.png" alt="Logout"/></a>
+
+    <a href="people/<?php echo $_SESSION['name']; ?>"><img src="img/profile.png" alt="Profile"/></a>
+    <a href="logout"><img src="img/logout.png" alt="Logout"/></a>
   </span>
 
 <?php
