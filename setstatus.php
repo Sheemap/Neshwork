@@ -13,7 +13,7 @@ if (login_check($mysqli) != true){
 <!DOCTYPE html>
 <html>
 <head>
-<title>Neshwork- Set Status</title>
+<title>Neshwork - Set Status</title>
 <link rel="stylesheet" type="text/css" href="style.css"/>
 </head>
 <body>

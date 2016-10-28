@@ -4,7 +4,8 @@ include_once 'config.php';
 session_start();
 
 if (isset($_POST['status'])){
-    $sql = "UPDATE users SET status = '{$_POST['status']}' WHERE id={$_SESSION['uid']}";
+    $sanitized = addslashes($_POST['status']);
+    $sql = "UPDATE users SET status = '{$sanitized}' WHERE id={$_SESSION['uid']}";
     $conn = mysqli_connect(HOST, USER, PASSWORD);
     if(! $conn ) {
         die('Error: Could not connect to database = ' . mysqli_error());

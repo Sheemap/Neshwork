@@ -20,11 +20,23 @@ while($row = mysqli_fetch_array($result)) {
         if ($timeago < 60){
             $timestamp = "less than a minute ago";
         } elseif ($timeago < 3600){
-            $timestamp = floor($timeago / 60) ." minutes ago";
+            if (floor($timeago /60) == 1){
+                $timestamp = floor($timeago / 60) ." minute ago";
+            } else {
+                $timestamp = floor($timeago / 60) ." minutes ago";
+            }
         } elseif ($timeago < 86400){
-            $timestamp = floor($timeago / 3600) ." hours ago";
+            if (floor($timeago /3600) == 1){
+                $timestamp = floor($timeago / 3600) ." hour ago";
+            } else {
+                $timestamp = floor($timeago / 3600) ." hours ago";
+            }
         } else {
-            $timestamp = floor($timeago / 86400) ." days ago";
+            if (floor($timeago /86400) == 1){
+                $timestamp = floor($timeago / 86400) ." day ago";
+            } else {
+                $timestamp = floor($timeago / 86400) ." days ago";
+            }
         }
     
         echo "<p class='message'>";

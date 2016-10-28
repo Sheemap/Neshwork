@@ -52,11 +52,23 @@ if (isset($_GET['person'])){
             if ($timeago < 60){
                 $lastseen = "less than a minute ago";
             } elseif ($timeago < 3600){
-                $lastseen = floor($timeago / 60) ." minutes ago";
+                if (floor($timeago /60) == 1){
+                    $lastseen = floor($timeago / 60) ." minute ago";
+                } else {
+                    $lastseen = floor($timeago / 60) ." minutes ago";
+                }
             } elseif ($timeago < 86400){
-                $lastseen = floor($timeago / 3600) ." hours ago";
+                if (floor($timeago /3600) == 1){
+                    $lastseen = floor($timeago / 3600) ." hour ago";
+                } else {
+                    $lastseen = floor($timeago / 3600) ." hours ago";
+                }
             } else {
-                $lastseen = floor($timeago / 86400) ." days ago";
+                if (floor($timeago /86400) == 1){
+                    $lastseen = floor($timeago / 86400) ." day ago";
+                } else {
+                    $lastseen = floor($timeago / 86400) ." days ago";
+                }
             }
 
             $msg = $row['msgcount'];
