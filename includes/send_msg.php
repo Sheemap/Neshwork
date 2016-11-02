@@ -3,7 +3,8 @@ include_once 'functions.php';
 
 session_start();
 
-$msg = addslashes($_POST['msg']);
+$msg1 = addslashes($_POST['msg']);
+$msg = htmlspecialchars($msg1);
 
 if (preg_replace('/\s/','',$msg) != ""){
     
