@@ -26,9 +26,9 @@ if (isset($_POST['pass'], $_POST['name'], $_POST['cnfpass'])){
         $error_msg .= "<p class='error'>Username must not contain any apostrophes or quotes.</p>";
     }
 
-    //Force username less thn 15 chars
-    if (strlen($_POST['name']) > 15){
-        $error_msg .= "<p class='error'>Username is too long! Please limit to 15 characters.</p>";
+    //Force username less thn 20 chars
+    if (strlen($_POST['name']) > 20){
+        $error_msg .= "<p class='error'>Username is too long! Please limit to 20 characters.</p>";
     }
 
         //Continues if no error was found
@@ -46,9 +46,9 @@ if (isset($_POST['pass'], $_POST['name'], $_POST['cnfpass'])){
             if(! $conn ) {
                 die('Error: Could not connect to database ' . mysqli_error());
             }
-   
+            
             $sql1 = "SELECT name FROM users";
-            $sql = "INSERT INTO users(id, name, pass, lastseen, status, msgcount, joined) VALUES ( NULL, '$name', '$pass', $now, '', 0, NOW())";
+            $sql = "INSERT INTO users(id, name, pass, lastseen, status, msgcount, joined) VALUES ( NULL, '$name', '$pass', $now, '', 0, $now)";
       
             mysqli_select_db($conn,DATABASE);
             $retval1 = mysqli_query( $conn, $sql1 );
