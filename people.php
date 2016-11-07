@@ -87,6 +87,34 @@ if (isset($_GET['person'])){
             }
          
             $joined = $row['joined'];
+            $timeago = ($now - $joined);
+            if ($timeago < 60){
+                $finaljoined = "less than a minute";
+            } elseif ($timeago < 3600){
+                if (floor($timeago /60) == 1){
+                    $finaljoined = floor($timeago / 60) ." minute";
+                } else {
+                    $finaljoined = floor($timeago / 60) ." minutes";
+                }
+            } elseif ($timeago < 86400){
+                if (floor($timeago /3600) == 1){
+                    $finaljoined = floor($timeago / 3600) ." hour";
+                } else {
+                    $finaljoined = floor($timeago / 3600) ." hours";
+                }
+            } elseif ($timeago < 2592000) {
+                if (floor($timeago /86400) == 1){
+                    $finaljoined = floor($timeago / 86400) ." day";
+                } else {
+                    $finaljoined = floor($timeago / 86400) ." days";
+                }
+            } else {
+                if (floor($timeago /2592000) == 1){
+                    $finaljoined = floor($timeago / 2592000) ." month";
+                } else {
+                    $finaljoined = floor($timeago / 2592000) ." months";
+                }
+            }
         } 
     }
       
@@ -146,7 +174,7 @@ echo <<<EOT
 $status
 <h3>Statistics</h3>
 <p>
-Member since: $joined
+Member for $finaljoined 
 <br>
 Message count: $msg
 
